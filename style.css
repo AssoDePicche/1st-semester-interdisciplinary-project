@@ -1,0 +1,28 @@
+html {
+  color-scheme: light dark;
+}
+
+body {
+  font-family: system-ui;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+p {
+  text-align: justify;
+}
+
+main, footer {
+  margin-inline: auto;
+  width: min(65ch, 100% - 4rem);
+}
+
+footer {
+  padding: 1.5rem;
+  text-align: center;
+}
