@@ -11,6 +11,7 @@
 #define DTHTYPE DHT22
 
 #define MAX_TEMPERATURE 38.5
+#define MIN_HUMIDITY 60
 
 #define BAUD_RATE 9600
 
@@ -99,6 +100,13 @@ void display_data()
 
     return;
   }
+  
+  if (humidity < MIN_HUMIDITY)
+  {
+    display.println("Baixa umidade");
+    
+    return;
+  }
 
   display.print("Umidade: ");
 
@@ -106,7 +114,7 @@ void display_data()
 
   display.print("%")
 
-      display.setCursor(0, 1);
+  display.setCursor(0, 1);
 
   display.print("Temperatura: ");
 
