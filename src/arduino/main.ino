@@ -100,7 +100,7 @@ void display_data()
 
   if (!is_the_sensor_working())
   {
-    display.print("Falha ao ler o sensor DHT");
+    display.println("Falha ao ler o sensor DHT");
 
     return;
   }
@@ -124,7 +124,7 @@ void display_data()
 
   display.print(temperature);
 
-  Serial.println(" °C");
+  display.print(" °C");
 }
 
 void update_heater()
