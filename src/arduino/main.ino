@@ -44,10 +44,6 @@ void setup()
 
   sensor.begin();
 
-  display.begin(LCD_COLUMNS, LCD_LINES);
-
-  display.clear();
-
   servo.attach(SERVOPIN);
 }
 
@@ -57,7 +53,23 @@ void loop()
 
   temperature = sensor.readTemperature();
 
-  debug();
+  if (!is_the_sensor_working())
+  {
+    Serial.println("Falha ao ler o sensor DHT");
+
+    display.print("Falha ao ler o sensor DHT");
+
+    return;
+  }
+
+  if (humidity < MIN_HUMIDITY)
+  {
+    Serial.println("Baixa umidade");
+
+    display.print("Baixa umidade");
+
+    return;
+  }
 
   display_data();
 
@@ -68,45 +80,9 @@ void loop()
   delay(REFRESH_DELAY);
 }
 
-void debug()
-{
-  if (!is_the_sensor_working())
-  {
-    Serial.println("Falha ao ler o sensor DHT");
-
-    return;
-  }
-
-  Serial.print("Umidade: ");
-
-  Serial.print(humidity);
-
-  Serial.println("%");
-
-  Serial.print("Temperatura: ");
-
-  Serial.print(temperature);
-
-  Serial.println(" °C");
-}
-
 void display_data()
 {
   display.setCursor(0, 0);
-
-  if (!is_the_sensor_working())
-  {
-    display.print("Falha ao ler o sensor DHT");
-
-    return;
-  }
-
-  if (humidity < MIN_HUMIDITY)
-  {
-    display.print("Baixa umidade");
-
-    return;
-  }
 
   display.print("Umidade: ");
 
