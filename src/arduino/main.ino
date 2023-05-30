@@ -1,6 +1,7 @@
 #include <DHT.h>
-#include <LiquidCrystal.h>
+#include <LiquidCrystal_I2C.h>
 #include <Servo.h>
+#include <Wire.h>
 
 #define SWITCHPIN 7
 
@@ -21,12 +22,7 @@
 
 #define LCD_COLUMNS 16
 #define LCD_LINES 2
-#define REGISTER_SELECT 12
-#define ENABLE 11
-#define DB4 5
-#define DB5 4
-#define DB6 3
-#define DB7 2
+#define LCD_ADDRESS 0x27
 
 Servo servo;
 
@@ -36,7 +32,7 @@ int servo_position = 0;
 
 double humidity, temperature;
 
-LiquidCrystal display(REGISTER_SELECT, ENABLE, DB4, DB5, DB6, DB7);
+LiquidCrystal_I2C display(LCD_ADDRESS, LCD_COLUMNS, LCD_LINES);
 
 void setup()
 {
@@ -100,14 +96,14 @@ void display_data()
 
   if (!is_the_sensor_working())
   {
-    display.println("Falha ao ler o sensor DHT");
+    display.print("Falha ao ler o sensor DHT");
 
     return;
   }
 
   if (humidity < MIN_HUMIDITY)
   {
-    display.println("Baixa umidade");
+    display.print("Baixa umidade");
 
     return;
   }
