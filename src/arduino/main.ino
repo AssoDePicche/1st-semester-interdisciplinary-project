@@ -2,6 +2,8 @@
 #include <LiquidCrystal.h>
 #include <Servo.h>
 
+#define SWITCHPIN 7
+
 #define HEATERPIN 8
 
 #define SERVOPIN 9
@@ -11,7 +13,7 @@
 #define DHTTYPE DHT22
 
 #define MAX_TEMPERATURE 38.5
-#define MIN_HUMIDITY 60
+#define MIN_HUMIDITY 180
 
 #define BAUD_RATE 9600
 
@@ -38,6 +40,8 @@ LiquidCrystal display(REGISTER_SELECT, ENABLE, DB4, DB5, DB6, DB7);
 
 void setup()
 {
+  pinMode(SWITCHPIN, INPUT);
+
   pinMode(HEATERPIN, OUTPUT);
 
   Serial.begin(BAUD_RATE);
@@ -125,7 +129,7 @@ void display_data()
 
 void update_heater()
 {
-  int mode = (temperature < MAX_TEMPERATURE) ? HIGH : LOW;
+  int mode = is_switch_on() && (temperature < MAX_TEMPERATURE) ? HIGH : LOW;
 
   digitalWrite(HEATERPIN, mode);
 }
@@ -135,19 +139,22 @@ void update_servo()
   while (servo_position++ <= SERVO_MAX_DEGREE)
   {
     servo.write(servo_position);
-
-    delay(REFRESH_DELAY);
   }
+
+  delay(REFRESH_DELAY);
 
   while (servo_position-- != 0)
   {
     servo.write(servo_position);
-
-    delay(REFRESH_DELAY);
   }
 }
 
 bool is_the_sensor_working()
 {
   return !isnan(humidity) && !isnan(temperature);
+}
+
+bool is_switch_on()
+{
+  return digitalRead(SWITCHPIN) == HIGH;
 }
