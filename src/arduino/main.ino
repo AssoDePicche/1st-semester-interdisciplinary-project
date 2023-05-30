@@ -112,7 +112,7 @@ void display_data()
 
   display.print(humidity);
 
-  display.print("%")
+  display.print("%");
 
   display.setCursor(0, 1);
 
