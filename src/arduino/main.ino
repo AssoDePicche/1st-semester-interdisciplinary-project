@@ -3,26 +3,19 @@
 #include <Servo.h>
 #include <Wire.h>
 
-#define SWITCHPIN 7
-
-#define HEATERPIN 8
-
-#define SERVOPIN 9
-#define SERVO_MAX_DEGREE 60
-
-#define DHTPIN 5
-#define DHTTYPE DHT22
-
-#define MAX_TEMPERATURE 38.5
-#define MIN_HUMIDITY 180
-
-#define BAUD_RATE 9600
-
-#define REFRESH_DELAY 2000
-
-#define LCD_COLUMNS 16
-#define LCD_LINES 2
-#define LCD_ADDRESS 0x27
+#define SWITCHPIN            9
+#define HEATERPIN            8
+#define SERVOPIN             7
+#define SERVO_MAX_DEGREE   180
+#define DHTPIN               6
+#define DHTTYPE          DHT22
+#define MAX_TEMPERATURE   38.5
+#define MIN_HUMIDITY        60
+#define BAUD_RATE         9600
+#define REFRESH_DELAY     2000
+#define LCD_COLUMNS         16
+#define LCD_LINES            2
+#define LCD_ADDRESS       0x27
 
 Servo servo;
 
