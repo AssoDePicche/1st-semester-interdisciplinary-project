@@ -3,7 +3,6 @@
 #include <Servo.h>
 #include <Wire.h>
 
-#define SWITCHPIN            9
 #define HEATERPIN            8
 #define SERVOPIN             7
 #define SERVO_MAX_DEGREE   180
@@ -94,7 +93,7 @@ void display_data()
 
 void update_heater()
 {
-  int mode = is_switch_on() && (temperature < MAX_TEMPERATURE) ? HIGH : LOW;
+  int mode = temperature < MAX_TEMPERATURE) ? HIGH : LOW;
 
   digitalWrite(HEATERPIN, mode);
 }
@@ -117,9 +116,4 @@ void update_servo()
 bool is_the_sensor_working()
 {
   return !isnan(humidity) && !isnan(temperature);
-}
-
-bool is_switch_on()
-{
-  return digitalRead(SWITCHPIN) == HIGH;
 }
