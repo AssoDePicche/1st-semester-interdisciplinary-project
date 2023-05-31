@@ -32,6 +32,10 @@ void setup()
 
   pinMode(HEATERPIN, OUTPUT);
 
+  display.init();
+
+  display.setBacklight(HIGH);
+
   Serial.begin(BAUD_RATE);
 
   sensor.begin();
@@ -59,8 +63,6 @@ void loop()
     Serial.println("Baixa umidade");
 
     display.print("Baixa umidade");
-
-    return;
   }
 
   display_data();
@@ -68,8 +70,6 @@ void loop()
   update_heater();
 
   update_servo();
-
-  delay(REFRESH_DELAY);
 }
 
 void display_data()
@@ -93,7 +93,7 @@ void display_data()
 
 void update_heater()
 {
-  int mode = temperature < MAX_TEMPERATURE) ? HIGH : LOW;
+  int mode = (temperature < MAX_TEMPERATURE) ? HIGH : LOW;
 
   digitalWrite(HEATERPIN, mode);
 }
@@ -104,8 +104,6 @@ void update_servo()
   {
     servo.write(servo_position);
   }
-
-  delay(REFRESH_DELAY);
 
   while (servo_position-- != 0)
   {
